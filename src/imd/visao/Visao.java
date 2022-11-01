@@ -35,7 +35,8 @@ public class Visao {
 		System.out.println("MEDIANA = " +abb.mediana());
 		System.out.println("Altura raiz esquerda = " +abb.getRaizArvore().getAltura());
 		abb.media(abb.getRaizArvore());
-		
+		System.out.println("");
+		System.out.println(abb.ehCheia(abb.getRaizArvore()));
 		
 		abb.removerNo(abb.getRaizArvore(), 62);
 		Arvore.imprimeOrdemSimetrica(abb.getRaizArvore());
@@ -46,6 +47,8 @@ public class Visao {
 		System.out.println("Nós na árvore: " +abb.getQtdDeNos());
 		System.out.println("MEDIANA = " +abb.mediana());
 		System.out.println("Altura raiz esquerda = " +abb.getRaizArvore().getAltura());
+		System.out.println("");
+		System.out.println(abb.ehCheia(abb.getRaizArvore()));
 		
 		abb.media(abb.getRaizArvore());
 	}

@@ -239,10 +239,26 @@ public class Arvore {
 		return conteudo;
 	}
 	
-	// Item 5
-	public boolean ehCheia() {
-
-		return false;
+	// Item 5 --- OK
+	public boolean ehCheia(No raiz) {
+		boolean ehCheia = false;
+		
+		//Caso 1 - árvore ou sub-árvore é vazia
+		if(raiz == null) {
+			ehCheia = true;
+		}
+		
+		//Caso 2 - Se o nó é uma folha, a árvore estará cheia se ele não tiver nenhum filho
+		if(raiz.getEsquerda() == null && raiz.getDireita() == null) {
+			ehCheia = true;
+		}
+		
+		//Caso 3 - Se o nó possui dois filhos, a árvore estará cheia caso ambos os nós também sejam 'cheios'
+		if(raiz.getEsquerda() != null && raiz.getDireita() != null) {
+			ehCheia = ehCheia(raiz.getDireita()) && ehCheia(raiz.getEsquerda());
+		}
+		
+		return ehCheia;
 	}
 
 	// ITEM 7 -- OK
