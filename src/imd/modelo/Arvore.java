@@ -215,6 +215,30 @@ public class Arvore {
 		return noMediana.getConteudo();
 	}
 
+	//Item 4 --- OK
+	public double media(No raiz) {
+		int sum = somatorioDosNos(raiz);
+		double media = (double)sum/qtdDeNos;
+		
+		
+		System.out.println("SUM = " +sum);
+		System.out.println("MEDIA = " +media);
+		return media;
+	}
+	
+	//Função relativa ao item 4
+	public int somatorioDosNos(No raiz) {
+		int conteudo = 0;
+		
+		if(raiz != null) {
+			conteudo += somatorioDosNos(raiz.getEsquerda());
+			conteudo += raiz.getConteudo();
+			conteudo += somatorioDosNos(raiz.getDireita());
+		}
+		
+		return conteudo;
+	}
+	
 	// Item 5
 	public boolean ehCheia() {
 
