@@ -13,17 +13,26 @@ import imd.modelo.Arvore;
 public class Visao {
 	public static void main(String[] args) {
 		Arvore abb = new Arvore();
-		Path caminho = Paths.get("C:/Users/b202/Documents/arquivoEntrada.txt");
+		Path caminhoEntrada = Paths.get("C:/Users/b202/Documents/arquivoEntrada.txt");
+		Path caminhoComandos = Paths.get("C:/Users/b202/Documents/arquivoComandos.txt");
+		List<String> comandos = new ArrayList<String>();
 		List<Integer> entrada = new ArrayList<Integer>();
 
 		try {
-			entrada = Arrays.asList(Files.readAllLines(caminho).get(0).split(" ")).stream()
+			entrada = Arrays.asList(Files.readAllLines(caminhoEntrada).get(0).split(" ")).stream()
 					.map((num) -> Integer.parseInt(num)).collect(Collectors.toList());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			comandos = Files.readAllLines(caminhoComandos);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		System.out.println(entrada );
+		System.out.println(comandos);
 		
 		for(Integer i : entrada) {
 			abb.adicionarNo(abb.getRaizArvore(), i);
