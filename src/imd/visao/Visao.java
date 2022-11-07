@@ -38,12 +38,7 @@ public class Visao {
 			abb.adicionarNo(abb.getRaizArvore(), i);
 		}
 		
-		Arvore.imprimeOrdemSimetrica(abb.getRaizArvore());
-		System.out.println("");
 		
-		System.out.println(comandos);
-		
-		System.err.println(abb.getRaizArvore().getDireita().getAltura());
 		for(String s : comandos) {
 			String subS[] = s.split(" ");
 			
