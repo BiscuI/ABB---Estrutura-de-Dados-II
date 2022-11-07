@@ -35,6 +35,7 @@ public class Arvore {
 		// se a raiz da árvore ainda for nula, ela é iniciada
 		if (raizArvore == null) {
 			raizArvore = new No(valorNovo);
+			System.out.println("VALOR INSERIDO COM SUCESSO!");
 			qtdDeNos++;
 			atualizaAltura(raizArvore, valorNovo);
 			return raizArvore;
@@ -46,6 +47,7 @@ public class Arvore {
 			if (raiz.getEsquerda() == null) {
 				raiz.setEsquerda(new No(valorNovo));
 				qtdDeNos++;
+				System.out.println("VALOR INSERIDO COM SUCESSO!");
 				atualizaAltura(raizArvore, valorNovo);
 			} else {
 				adicionarNo(raiz.getEsquerda(), valorNovo);
@@ -57,6 +59,7 @@ public class Arvore {
 			if (raiz.getDireita() == null) {
 				raiz.setDireita(new No(valorNovo));
 				qtdDeNos++;
+				System.out.println("VALOR INSERIDO COM SUCESSO!");
 				atualizaAltura(raizArvore, valorNovo);
 			} else {
 				adicionarNo(raiz.getDireita(), valorNovo);
@@ -69,7 +72,6 @@ public class Arvore {
 
 	// #OK
 	public No removerNo(No raiz, int valorExcluir) {
-		// System.out.println(raiz.getConteudo());
 
 		if (raizArvore == null) {
 			System.out.println("A árvore está vazia!");
@@ -86,16 +88,18 @@ public class Arvore {
 				if (raiz.getEsquerda() == null && raiz.getDireita() == null) {
 					raiz = null;
 					qtdDeNos--;
+					System.out.println("VALOR REMOVIDO COM SUCESSO!");
 					atualizaAltura(raizArvore, valorExcluir);
 					return raiz;
 					// 2º Caso: O nó possui apenas um filho(à direita ou esquerda)
 				} else if (raiz.getEsquerda() == null) {
-					// Se ele possui apenas filho na direita/esquerda, ele tem a referência trocada
-					// para uma que aponta para seu filho.
+					// Se ele possui apenas filho na direita/esquerda, ele tem a referência trocada para uma que aponta para seu filho.
+					System.out.println("VALOR REMOVIDO COM SUCESSO!");
 					qtdDeNos--;
 					atualizaAltura(raizArvore, valorExcluir);
 					return raiz.getDireita();
 				} else if (raiz.getDireita() == null) {
+					System.out.println("VALOR REMOVIDO COM SUCESSO!");
 					qtdDeNos--;
 					atualizaAltura(raizArvore, valorExcluir);
 					return raiz.getEsquerda();
@@ -118,8 +122,7 @@ public class Arvore {
 				 */
 			}
 	
-			// Se não for igual, significa que ele pode estar em alguma das sub-árvores. É
-			// feita a chamada recursiva
+			// Se não for igual, significa que ele pode estar em alguma das sub-árvores. É feita a chamada recursiva
 			else if (raiz.getConteudo() > valorExcluir) {
 				raiz.setEsquerda(removerNo(raiz.getEsquerda(), valorExcluir));
 			} else if (raiz.getConteudo() < valorExcluir) {
@@ -142,14 +145,12 @@ public class Arvore {
 		iteracoesSimetrica = n;
 		No node = new No();
 		node = visitaSimetricaBuscaNo(raizArvore);
-		// System.out.println("IT RETURN- " + node.getConteudo());
 		return node;
 	}
 
 	// Função relativa ao item 1
 	private No visitaSimetricaBuscaNo(No raiz) {
 		No auxNo = new No();
-		// System.out.println("INTER ---- " +iteracoesSimetrica);
 
 		if (raiz != null && iteracoesSimetrica > 0) {
 			auxNo = visitaSimetricaBuscaNo(raiz.getEsquerda());
@@ -157,10 +158,8 @@ public class Arvore {
 			if (auxNo == null && iteracoesSimetrica > 0) {
 				iteracoesSimetrica--;
 				if (iteracoesSimetrica == 0) {
-					// System.out.println("IT - " + raiz.getConteudo());
 					return raiz;
 				}
-				// System.out.println(raiz.getConteudo() + " ");
 				auxNo = visitaSimetricaBuscaNo(raiz.getDireita());
 
 				if (auxNo != null) {
@@ -177,14 +176,12 @@ public class Arvore {
 	public int posicao(int x) {
 		iteracoesSimetrica = 1;
 		int retorno = visitaSimetricaBuscaIndice(raizArvore, x);
-		//System.out.println("IT RETORNO ----" + retorno);
 		return retorno;
 	}
 
 	// Função relativa ao item 2
 	public int visitaSimetricaBuscaIndice(No raiz, int x) {
 		int auxComparativo;
-		//System.out.println("IT ----- " + iteracoesSimetrica);
 
 		if (raiz != null) {
 
@@ -196,8 +193,6 @@ public class Arvore {
 
 			if (auxComparativo == 0) {
 				iteracoesSimetrica++;
-
-				//System.out.println(raiz.getConteudo());
 
 				auxComparativo = visitaSimetricaBuscaIndice(raiz.getDireita(), x);
 
@@ -229,9 +224,6 @@ public class Arvore {
 		int sum = somatorioDosNos(raiz);
 		double media = (double)sum/qtdDeNos;
 		
-		
-		System.out.println("SUM = " +sum);
-		System.out.println("MEDIA = " +media);
 		return media;
 	}
 	
@@ -270,7 +262,15 @@ public class Arvore {
 		return ehCheia;
 	}
 
-	// ITEM 7 -- OK
+	
+	//Item 6 --
+	public boolean ehCompleta() {
+		
+		
+		return false;
+	}
+	
+	// Item 7 -- OK
 	public String stringPreOrdem(No raiz) {
 		String retorno = "";
 		if (raiz != null) {
@@ -285,7 +285,7 @@ public class Arvore {
 	public static void imprimeOrdemSimetrica(No raiz) {
 		if (raiz != null) {
 			imprimeOrdemSimetrica(raiz.getEsquerda());
-			System.out.print(raiz.getAltura() + " ");
+			System.out.print(raiz.getConteudo() + " ");
 			imprimeOrdemSimetrica(raiz.getDireita());
 		}
 	}

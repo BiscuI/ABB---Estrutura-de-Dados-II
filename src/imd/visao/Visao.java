@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 import imd.modelo.Arvore;
 
 public class Visao {
-	public static void main(String[] args) {
-		Arvore abb = new Arvore();
-		Path caminhoEntrada = Paths.get("D:/ex/Arquivo1.txt");
-		Path caminhoComandos = Paths.get("D:/ex/Arquivo2.txt");
+	public static void main(String[] args) {		
+		//Leitura dos arquivos de entrada
+		Path caminhoEntrada = Paths.get("C:/users/b202/Documents/arquivoEntrada.txt");
+		Path caminhoComandos = Paths.get("C:/users/b202/Documents/arquivoComandos.txt");
 		List<String> comandos = new ArrayList<String>();
 		List<Integer> entrada = new ArrayList<Integer>();
 
@@ -31,59 +31,78 @@ public class Visao {
 			e.printStackTrace();
 		}
 
-		System.out.println(entrada );
-		System.out.println(comandos);
+		//Instanciando a árvore com os valores recebidos no arquivo de entrada
+		Arvore abb = new Arvore();
 		
 		for(Integer i : entrada) {
 			abb.adicionarNo(abb.getRaizArvore(), i);
 		}
 		
 		Arvore.imprimeOrdemSimetrica(abb.getRaizArvore());
-		System.out.println();
-		abb.adicionarNo(abb.getRaizArvore(), 39);
-		Arvore.imprimeOrdemSimetrica(abb.getRaizArvore());
-		System.out.println();
-		abb.removerNo(abb.getRaizArvore(), 6);
-		Arvore.imprimeOrdemSimetrica(abb.getRaizArvore());
-		System.out.println();
-		System.out.println(abb.enesimoElemento(4).getConteudo());
-		System.out.println(abb.posicao(60));
-
+		System.out.println("");
 		
-		// abb.adicionarNo(abb.getRaizArvore(), 3);
-		// No node = abb.buscaNo(abb.getRaizArvore(), 40);
-
-		// abb.removerNo(abb.getRaizArvore(), 30);
-		// System.out.println(node.getDireita().getConteudo());
-		// System.out.println(node.getEsquerda().getConteudo());
-		// System.out.println(abb.stringPreOrdem(abb.getRaizArvore()));
-
-		/*
-		 * Qtd de nós da árvore está OK. Implementar somatório dos nós à esquerda e
-		 * direita;
-		 */
-
-		// abb.atualizaAltura(abb.getRaizArvore());
-
-		/*
-		 * Arvore.imprimeOrdemSimetrica(abb.getRaizArvore()); abb.enesimoElemento(4);
-		 * System.out.println(""); System.out.println("Nós na árvore: "
-		 * +abb.getQtdDeNos()); System.out.println("MEDIANA = " +abb.mediana());
-		 * System.out.println("Altura raiz esquerda = "
-		 * +abb.getRaizArvore().getAltura()); abb.media(abb.getRaizArvore());
-		 * System.out.println(""); System.out.println(abb.ehCheia(abb.getRaizArvore()));
-		 * 
-		 * abb.removerNo(abb.getRaizArvore(), 62);
-		 * Arvore.imprimeOrdemSimetrica(abb.getRaizArvore()); abb.enesimoElemento(4);
-		 * 
-		 * CORRIGIR ATUALIZAÇÃO DE ALTURA AO REMOVER ELEMENTO System.out.println("");
-		 * System.out.println("Nós na árvore: " +abb.getQtdDeNos());
-		 * System.out.println("MEDIANA = " +abb.mediana());
-		 * System.out.println("Altura raiz esquerda = "
-		 * +abb.getRaizArvore().getAltura()); System.out.println("");
-		 * System.out.println(abb.ehCheia(abb.getRaizArvore()));
-		 * 
-		 * abb.media(abb.getRaizArvore());
-		 */
+		System.out.println(comandos);
+		
+		
+		for(String s : comandos) {
+			String subS[] = s.split(" ");
+			
+			switch(subS[0]) {
+			case "INSIRA":
+				System.out.println("------");
+				abb.adicionarNo(abb.getRaizArvore(), Integer.parseInt(subS[1]));
+				System.out.println("");
+				System.out.println("Estado atual da árvore: ");
+				Arvore.imprimeOrdemSimetrica(abb.getRaizArvore());
+				System.out.println("");
+				break;
+			case "REMOVA":
+				System.out.println("------");
+				abb.removerNo(abb.getRaizArvore(), Integer.parseInt(subS[1]));
+				System.out.println("");
+				System.out.println("Estado atual da árvore: ");
+				Arvore.imprimeOrdemSimetrica(abb.getRaizArvore());
+				System.out.println("");
+				break;
+			case "BUSCAR":
+				System.out.println("------");
+				abb.buscaNo(abb.getRaizArvore(), Integer.parseInt(subS[1]));
+				break;
+			case "ENESIMO":
+				System.out.println("------");
+				System.out.println("O nó na posição " +subS[1]+" é: " +abb.enesimoElemento(Integer.parseInt(subS[1])).getConteudo());
+				break;
+			case "POSICAO":
+				System.out.println("------");
+				System.out.println("A posição ocupada pelo nó de valor " +subS[1]+" é: " +abb.posicao(Integer.parseInt(subS[1])));
+				break;
+			case "MEDIANA":
+				System.out.println("------");
+				System.out.println("A mediana da árvore é: " +abb.mediana());				
+				break;
+			case "MEDIA":
+				System.out.println("------");
+				System.out.println("A média dos valores da árvore é: " +abb.media(abb.getRaizArvore()));
+				break;
+			case "CHEIA":
+				System.out.println("------");
+				if(abb.ehCheia(abb.getRaizArvore())) {					
+					System.out.println("A árvore é cheia!");
+				}else {
+					System.out.println("A árvore não é cheia!");
+				}
+				break;
+			case "COMPLETA":
+				//IMPLEMENTAR ITEM 6
+				break;
+			case "PREORDEM":
+				System.out.println("------");
+				System.out.println("Pré ordem: " +abb.stringPreOrdem(abb.getRaizArvore()));
+				break;
+			case "IMPRIMA":
+				//IMPLEMENTAR ITEM 8
+				break;
+			}
+		}
 	}
 }
