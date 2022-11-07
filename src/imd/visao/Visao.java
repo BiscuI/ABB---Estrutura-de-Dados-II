@@ -93,7 +93,12 @@ public class Visao {
 				}
 				break;
 			case "COMPLETA":
-				//IMPLEMENTAR ITEM 6
+				System.out.println("------");
+				if(abb.ehCheia(abb.getRaizArvore())) {					
+					System.out.println("A árvore é completa!");
+				}else {
+					System.out.println("A árvore não é completa!");
+				}
 				break;
 			case "PREORDEM":
 				System.out.println("------");

@@ -264,10 +264,25 @@ public class Arvore {
 
 	
 	//Item 6 --
-	public boolean ehCompleta() {
+	public boolean ehCompleta(No raiz) {
+		boolean verificador = true;
 		
+		if(raiz == null) {
+			verificador = true;
+		}
 		
-		return false;
+		if(raiz.getEsquerda() == null && raiz.getAltura()>2) {
+			verificador = false;
+		}
+		if(raiz.getDireita() == null && raiz.getAltura()>2) {
+			verificador = false;
+		}
+		
+		if(raiz.getEsquerda() == null && raiz.getDireita() == null) {
+			verificador = ehCompleta(raiz.getDireita()) && ehCheia(raiz.getEsquerda());
+		}
+		
+		return verificador;
 	}
 	
 	// Item 7 -- OK
