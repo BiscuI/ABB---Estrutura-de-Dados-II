@@ -282,6 +282,7 @@ public class Arvore {
 			verificador = ehCompleta(raiz.getDireita()) && ehCheia(raiz.getEsquerda());
 		}
 		
+		System.err.println(raiz.getConteudo()+ "retorno = " +verificador);
 		return verificador;
 	}
 	

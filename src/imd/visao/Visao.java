@@ -43,7 +43,7 @@ public class Visao {
 		
 		System.out.println(comandos);
 		
-		
+		System.err.println(abb.getRaizArvore().getDireita().getAltura());
 		for(String s : comandos) {
 			String subS[] = s.split(" ");
 			
@@ -94,7 +94,7 @@ public class Visao {
 				break;
 			case "COMPLETA":
 				System.out.println("------");
-				if(abb.ehCheia(abb.getRaizArvore())) {					
+				if(abb.ehCompleta(abb.getRaizArvore())) {					
 					System.out.println("A árvore é completa!");
 				}else {
 					System.out.println("A árvore não é completa!");
