@@ -36,7 +36,7 @@ public class Arvore {
 		if (raizArvore == null) {
 			raizArvore = new No(valorNovo);
 			qtdDeNos++;
-			atualizaAltura(raizArvore);
+			atualizaAltura(raizArvore, valorNovo);
 			return raizArvore;
 		}
 
@@ -46,7 +46,7 @@ public class Arvore {
 			if (raiz.getEsquerda() == null) {
 				raiz.setEsquerda(new No(valorNovo));
 				qtdDeNos++;
-				atualizaAltura(raizArvore);
+				atualizaAltura(raizArvore, valorNovo);
 			} else {
 				adicionarNo(raiz.getEsquerda(), valorNovo);
 			}
@@ -57,7 +57,7 @@ public class Arvore {
 			if (raiz.getDireita() == null) {
 				raiz.setDireita(new No(valorNovo));
 				qtdDeNos++;
-				atualizaAltura(raizArvore);
+				atualizaAltura(raizArvore, valorNovo);
 			} else {
 				adicionarNo(raiz.getDireita(), valorNovo);
 			}
@@ -75,54 +75,63 @@ public class Arvore {
 			System.out.println("A árvore está vazia!");
 			return raizArvore;
 		}
-
-		// Se o valor da raiz parâmetro for igual ao valor a excluir, analisamos os
-		// casos e executamos a remoção
-		if (raiz.getConteudo() == valorExcluir) {
-			// 1º Caso: O nó não possui nenhum filho
-			if (raiz.getEsquerda() == null && raiz.getDireita() == null) {
-				raiz = null;
-				qtdDeNos--;
-				atualizaAltura(raizArvore);
-				return raiz;
-				// 2º Caso: O nó possui apenas um filho(à direita ou esquerda)
-			} else if (raiz.getEsquerda() == null) {
-				// Se ele possui apenas filho na direita/esquerda, ele tem a referência trocada
-				// para uma que aponta para seu filho.
-				qtdDeNos--;
-				atualizaAltura(raizArvore);
-				return raiz.getDireita();
-			} else if (raiz.getDireita() == null) {
-				qtdDeNos--;
-				atualizaAltura(raizArvore);
-				return raiz.getEsquerda();
-
-				// 3º Caso: O nó possui dois filhos
-			} else {
-				No aux = raiz.getDireita();
-
-				// Pegando o elemento mais à esquerda da sub-árvore da direita.
-				while (aux.getEsquerda() != null) {
-					aux = aux.getEsquerda();
+		
+		//Se o nó não for nulo, executamos as verificações
+		if(raiz != null) {
+			
+			// Se o valor da raiz parâmetro for igual ao valor a excluir, analisamos os
+			// casos e executamos a remoção
+			if (raiz.getConteudo() == valorExcluir) {
+				// 1º Caso: O nó não possui nenhum filho
+				if (raiz.getEsquerda() == null && raiz.getDireita() == null) {
+					raiz = null;
+					qtdDeNos--;
+					atualizaAltura(raizArvore, valorExcluir);
+					return raiz;
+					// 2º Caso: O nó possui apenas um filho(à direita ou esquerda)
+				} else if (raiz.getEsquerda() == null) {
+					// Se ele possui apenas filho na direita/esquerda, ele tem a referência trocada
+					// para uma que aponta para seu filho.
+					qtdDeNos--;
+					atualizaAltura(raizArvore, valorExcluir);
+					return raiz.getDireita();
+				} else if (raiz.getDireita() == null) {
+					qtdDeNos--;
+					atualizaAltura(raizArvore, valorExcluir);
+					return raiz.getEsquerda();
+	
+					// 3º Caso: O nó possui dois filhos
+				} else {
+					No aux = raiz.getDireita();
+	
+					// Pegando o elemento mais à esquerda da sub-árvore da direita.
+					while (aux.getEsquerda() != null) {
+						aux = aux.getEsquerda();
+					}
+	
+					raiz.setConteudo(aux.getConteudo());
+					raiz.setDireita(removerNo(raiz.getDireita(), raiz.getConteudo()));
 				}
-
-				raiz.setConteudo(aux.getConteudo());
-				raiz.setDireita(removerNo(raiz.getDireita(), raiz.getConteudo()));
+				/*
+				 * aux.setDireita(raiz.getDireita()); aux.setEsquerda(raiz.getEsquerda()); raiz
+				 * = aux;
+				 */
 			}
-			/*
-			 * aux.setDireita(raiz.getDireita()); aux.setEsquerda(raiz.getEsquerda()); raiz
-			 * = aux;
-			 */
+	
+			// Se não for igual, significa que ele pode estar em alguma das sub-árvores. É
+			// feita a chamada recursiva
+			else if (raiz.getConteudo() > valorExcluir) {
+				raiz.setEsquerda(removerNo(raiz.getEsquerda(), valorExcluir));
+			} else if (raiz.getConteudo() < valorExcluir) {
+				raiz.setDireita(removerNo(raiz.getDireita(), valorExcluir));
+			}
 		}
-
-		// Se não for igual, significa que ele pode estar em alguma das sub-árvores. É
-		// feita a chamada recursiva
-		else if (raiz.getConteudo() > valorExcluir) {
-			raiz.setEsquerda(removerNo(raiz.getEsquerda(), valorExcluir));
-		} else if (raiz.getConteudo() < valorExcluir) {
-			raiz.setDireita(removerNo(raiz.getDireita(), valorExcluir));
+		
+		// Se o nó for nulo, então o valor a ser removido não se encontra na árvore
+		else {
+			System.out.println("O valor a ser removido não se encontra na árvore!");
+			return null;
 		}
-
 		return raiz;
 	}
 
@@ -168,14 +177,14 @@ public class Arvore {
 	public int posicao(int x) {
 		iteracoesSimetrica = 1;
 		int retorno = visitaSimetricaBuscaIndice(raizArvore, x);
-		System.out.println("IT RETORNO ----" + retorno);
+		//System.out.println("IT RETORNO ----" + retorno);
 		return retorno;
 	}
 
 	// Função relativa ao item 2
 	public int visitaSimetricaBuscaIndice(No raiz, int x) {
 		int auxComparativo;
-		System.out.println("IT ----- " + iteracoesSimetrica);
+		//System.out.println("IT ----- " + iteracoesSimetrica);
 
 		if (raiz != null) {
 
@@ -188,7 +197,7 @@ public class Arvore {
 			if (auxComparativo == 0) {
 				iteracoesSimetrica++;
 
-				System.out.println(raiz.getConteudo());
+				//System.out.println(raiz.getConteudo());
 
 				auxComparativo = visitaSimetricaBuscaIndice(raiz.getDireita(), x);
 
@@ -276,20 +285,24 @@ public class Arvore {
 	public static void imprimeOrdemSimetrica(No raiz) {
 		if (raiz != null) {
 			imprimeOrdemSimetrica(raiz.getEsquerda());
-			System.out.print(raiz.getConteudo() + " ");
+			System.out.print(raiz.getAltura() + " ");
 			imprimeOrdemSimetrica(raiz.getDireita());
 		}
 	}
 	
 	//#OK
-	public void atualizaAltura(No raiz) {
-		if(raiz.getEsquerda()!=null) {
-			atualizaAltura(raiz.getEsquerda());
+	public void atualizaAltura(No raiz, int valorNovo) {
+		if(valorNovo < raiz.getConteudo()) {
+			if(raiz.getEsquerda()!=null) {
+				atualizaAltura(raiz.getEsquerda(), valorNovo);
+			}
 		}
-		
-		if(raiz.getDireita()!=null) {
-			atualizaAltura(raiz.getDireita());
+		else if(valorNovo > raiz.getConteudo()) {
+			if(raiz.getDireita()!=null) {
+				atualizaAltura(raiz.getDireita(), valorNovo);
+			}
 		}
+
 		calculaAlturaNo(raiz);
 	}
 

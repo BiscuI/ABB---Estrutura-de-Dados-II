@@ -13,8 +13,8 @@ import imd.modelo.Arvore;
 public class Visao {
 	public static void main(String[] args) {
 		Arvore abb = new Arvore();
-		Path caminhoEntrada = Paths.get("C:/Users/b202/Documents/arquivoEntrada.txt");
-		Path caminhoComandos = Paths.get("C:/Users/b202/Documents/arquivoComandos.txt");
+		Path caminhoEntrada = Paths.get("D:/ex/Arquivo1.txt");
+		Path caminhoComandos = Paths.get("D:/ex/Arquivo2.txt");
 		List<String> comandos = new ArrayList<String>();
 		List<Integer> entrada = new ArrayList<Integer>();
 
@@ -39,7 +39,17 @@ public class Visao {
 		}
 		
 		Arvore.imprimeOrdemSimetrica(abb.getRaizArvore());
+		System.out.println();
+		abb.adicionarNo(abb.getRaizArvore(), 39);
+		Arvore.imprimeOrdemSimetrica(abb.getRaizArvore());
+		System.out.println();
+		abb.removerNo(abb.getRaizArvore(), 6);
+		Arvore.imprimeOrdemSimetrica(abb.getRaizArvore());
+		System.out.println();
+		System.out.println(abb.enesimoElemento(4).getConteudo());
+		System.out.println(abb.posicao(60));
 
+		
 		// abb.adicionarNo(abb.getRaizArvore(), 3);
 		// No node = abb.buscaNo(abb.getRaizArvore(), 40);
 
