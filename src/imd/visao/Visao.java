@@ -13,8 +13,8 @@ import imd.modelo.Arvore;
 public class Visao {
 	public static void main(String[] args) {		
 		//Leitura dos arquivos de entrada
-		Path caminhoEntrada = Paths.get("C:/users/b202/Documents/arquivoEntrada.txt");
-		Path caminhoComandos = Paths.get("C:/users/b202/Documents/arquivoComandos.txt");
+		Path caminhoEntrada = Paths.get("D:/USUARIO/Documentos/arquivoEntrada.txt");
+		Path caminhoComandos = Paths.get("D:/USUARIO/Documentos/arquivoComandos.txt");
 		List<String> comandos = new ArrayList<String>();
 		List<Integer> entrada = new ArrayList<Integer>();
 
@@ -100,7 +100,9 @@ public class Visao {
 				System.out.println("Pré ordem: " +abb.stringPreOrdem(abb.getRaizArvore()));
 				break;
 			case "IMPRIMA":
-				//IMPLEMENTAR ITEM 8
+				System.out.println("------");
+				abb.imprimeArvore(Integer.parseInt(subS[1]));
+				System.out.println();
 				break;
 			}
 		}

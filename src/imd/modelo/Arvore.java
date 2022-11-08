@@ -35,7 +35,7 @@ public class Arvore {
 		// se a raiz da árvore ainda for nula, ela é iniciada
 		if (raizArvore == null) {
 			raizArvore = new No(valorNovo);
-			System.out.println("VALOR INSERIDO COM SUCESSO!");
+			System.out.println(valorNovo + " INSERIDO COM SUCESSO!");
 			qtdDeNos++;
 			atualizaAltura(raizArvore, valorNovo);
 			return raizArvore;
@@ -47,7 +47,7 @@ public class Arvore {
 			if (raiz.getEsquerda() == null) {
 				raiz.setEsquerda(new No(valorNovo));
 				qtdDeNos++;
-				System.out.println("VALOR INSERIDO COM SUCESSO!");
+				System.out.println(valorNovo + " INSERIDO COM SUCESSO!");
 				atualizaAltura(raizArvore, valorNovo);
 			} else {
 				adicionarNo(raiz.getEsquerda(), valorNovo);
@@ -59,13 +59,13 @@ public class Arvore {
 			if (raiz.getDireita() == null) {
 				raiz.setDireita(new No(valorNovo));
 				qtdDeNos++;
-				System.out.println("VALOR INSERIDO COM SUCESSO!");
+				System.out.println(valorNovo + " INSERIDO COM SUCESSO!");
 				atualizaAltura(raizArvore, valorNovo);
 			} else {
 				adicionarNo(raiz.getDireita(), valorNovo);
 			}
 		} else {
-			System.out.println("O nó já existe na árvore!");
+			System.out.println(valorNovo + " já está na árvore, não pode ser inserido!");
 		}
 		return raiz;
 	}
@@ -132,7 +132,7 @@ public class Arvore {
 		
 		// Se o nó for nulo, então o valor a ser removido não se encontra na árvore
 		else {
-			System.out.println("O valor a ser removido não se encontra na árvore!");
+			System.out.println("O valor " + valorExcluir + " não está na árvore, não pode ser removido!");
 			return null;
 		}
 		return raiz;
@@ -208,15 +208,17 @@ public class Arvore {
 
 	// Item 3 --- OK
 	public int mediana() {
-		No noMediana = new No();
+		int mediana;
 
 		if (qtdDeNos % 2 == 0) {
-			noMediana = enesimoElemento(qtdDeNos / 2);
+			mediana = enesimoElemento(qtdDeNos / 2).getConteudo();
+			mediana += enesimoElemento((qtdDeNos / 2) + 1).getConteudo();
+			mediana /= 2;
 		} else {
-			noMediana = enesimoElemento((qtdDeNos / 2) + 1);
+			mediana = enesimoElemento((qtdDeNos / 2) + 1).getConteudo();
 		}
 
-		return noMediana.getConteudo();
+		return mediana;
 	}
 
 	//Item 4 --- OK
@@ -282,7 +284,7 @@ public class Arvore {
 			verificador = ehCompleta(raiz.getDireita()) && ehCheia(raiz.getEsquerda());
 		}
 		
-		System.err.println(raiz.getConteudo()+ "retorno = " +verificador);
+		//System.err.println(raiz.getConteudo()+ "retorno = " +verificador);
 		return verificador;
 	}
 	
@@ -295,6 +297,51 @@ public class Arvore {
 			retorno += stringPreOrdem(raiz.getDireita());
 		}
 		return retorno;
+	}
+	
+	// Item 8
+	public void imprimeArvore(int s) {
+		if(s == 1) {
+			System.out.println("Impressão da árvore no Fomato 1:");
+			imprimeFormatoUm(raizArvore, 0);
+		}
+		else {
+			System.out.println("Impressão da árvore no Fomato 2:");
+			imprimeFormatoDois(raizArvore);
+		}
+	}
+	
+	// Função relativa ao item 8
+	public void imprimeFormatoUm(No raiz, int nivel) {
+		for(int i = 0; i < nivel; i++) {
+			System.out.print("\t");
+		}
+		System.out.println(raiz.getConteudo());
+		
+		if(raiz.getEsquerda()!=null) {
+			imprimeFormatoUm(raiz.getEsquerda(), nivel + 1);
+		}
+		
+		if(raiz.getDireita()!=null) {
+			imprimeFormatoUm(raiz.getDireita(), nivel + 1);
+		}
+	}
+	
+	// Função relativa ao item 8
+	public void imprimeFormatoDois(No raiz) {
+		System.out.print("(");
+		System.out.print(raiz.getConteudo());
+		
+		if(raiz.getEsquerda()!=null) {
+			System.out.print(" ");
+			imprimeFormatoDois(raiz.getEsquerda());
+		}
+		
+		if(raiz.getDireita()!=null) {
+			System.out.print(" ");
+			imprimeFormatoDois(raiz.getDireita());
+		}
+		System.out.print(")");
 	}
 
 	// #OK
