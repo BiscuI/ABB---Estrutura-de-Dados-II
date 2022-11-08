@@ -13,8 +13,10 @@ import imd.modelo.Arvore;
 public class Visao {
 	public static void main(String[] args) {		
 		//Leitura dos arquivos de entrada
-		Path caminhoEntrada = Paths.get("D:/USUARIO/Documentos/arquivoEntrada.txt");
-		Path caminhoComandos = Paths.get("D:/USUARIO/Documentos/arquivoComandos.txt");
+		//Alterar o caminho dos arquivos de acordo com o README!!!
+		Path caminhoEntrada = Paths.get("/home/{seu usuario}/Documentos/arquivoEntrada.txt");
+		Path caminhoComandos = Paths.get("/home/{seu usuario}/Documentos/arquivoComandos.txt");
+		
 		List<String> comandos = new ArrayList<String>();
 		List<Integer> entrada = new ArrayList<Integer>();
 
